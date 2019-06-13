@@ -38,7 +38,7 @@ module BitBucket
       if BitBucket.options[:bitbucket_server]
         get_request("/1.0/repositories/#{user}/#{repo.downcase}/raw/#{sha}/#{path}")
       else
-        get_request("/2.0/repositories/#{user}/#{repo.downcase}/raw/#{sha}/#{path}")
+        get_request("/2.0/repositories/#{user}/#{repo.downcase}/src/#{sha}/#{path}")
       end
     end
     alias :find :get
