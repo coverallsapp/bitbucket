@@ -14,11 +14,7 @@ module BitBucket
       _validate_user_repo_params(user, repo) unless user? && repo?
       _validate_presence_of(sha, path)
 
-      if BitBucket.options[:bitbucket_server]
-        get_request("/1.0/repositories/#{user}/#{repo.downcase}/src/#{sha}/#{path}")
-      else
-        get_request("/2.0/repositories/#{user}/#{repo.downcase}/src/#{sha}/#{path}")
-      end
+      get_request("/1.0/repositories/#{user}/#{repo.downcase}/raw/#{sha}/#{path}")
     end
     alias :all :list
 
@@ -35,11 +31,7 @@ module BitBucket
       _validate_user_repo_params(user, repo) unless user? && repo?
       _validate_presence_of(sha, path)
 
-      if BitBucket.options[:bitbucket_server]
-        get_request("/1.0/repositories/#{user}/#{repo.downcase}/raw/#{sha}/#{path}")
-      else
-        get_request("/2.0/repositories/#{user}/#{repo.downcase}/src/#{sha}/#{path}")
-      end
+      get_request("/1.0/repositories/#{user}/#{repo.downcase}/raw/#{sha}/#{path}")
     end
     alias :find :get
 
