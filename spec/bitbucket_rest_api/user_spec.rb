@@ -17,7 +17,7 @@ describe BitBucket::User do
 
   describe '#profile' do
     it 'sends the request to the right url' do
-      expect(@user).to receive(:request).with(:get, '/1.0/user', {}, {})
+      expect(@user).to receive(:request).with(:get, '/2.0/user', {}, {})
       @user.profile
     end
   end

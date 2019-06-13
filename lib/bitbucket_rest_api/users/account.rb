@@ -3,15 +3,19 @@
 module BitBucket
   class Users::Account < API
 
-    # API about users/account , please refer to 
+    # API about users/account , please refer to
     # https://confluence.atlassian.com/display/BITBUCKET/account+Resource
-    #  
+    #
 
 
     # GET the account profile
-    # 
+    #
     def profile(accountname)
-      response = get_request("/1.0/users/#{accountname}")
+      response = if BitBucket.options[:bitbucket_server]
+        get_request("/1.0/users/#{accountname}")
+      else
+        get_request("/2.0/users/#{accountname}")
+      end
     end
 
     # GET the account plan
@@ -21,7 +25,11 @@ module BitBucket
 
     # GET the emails
     def emails(accountname)
-      response = get_request("/1.0/users/#{accountname}/emails")
+      response = if BitBucket.options[:bitbucket_server]
+        get_request("/1.0/users/#{accountname}/emails")
+      else
+        get_request("/2.0/users/#{accountname}/emails")
+      end
     end
 
     # GET the followers

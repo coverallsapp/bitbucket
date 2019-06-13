@@ -115,7 +115,12 @@ module BitBucket
       _validate_user_repo_params(user, repo) unless (user? && repo?)
       normalize! params
 
-      response = get_request("/1.0/repositories/#{user}/#{repo.downcase}/branches/", params)
+      response = if BitBucket.options[:bitbucket_server]
+        get_request("/1.0/repositories/#{user}/#{repo.downcase}/branches/", params)
+      else
+        get_request("/2.0/repositories/#{user}/#{repo.downcase}/branches/", params)
+      end
+
       return response unless block_given?
       response.each { |el| yield el }
     end
